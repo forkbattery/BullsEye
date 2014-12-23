@@ -77,17 +77,35 @@
     
     NSString * message = [NSString stringWithFormat:@"You scored %i points", points];
     
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    UIAlertView *alertView = [[UIAlertView alloc]
+                              initWithTitle:title
+                              message:message
+                              delegate:self
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil, nil];
     [alertView show];
-    
-    [self startNewRound];
-    [self updateLabels];
     
 }
 
 - (IBAction)sliderMoved:(UISlider *)slider {
     
     _currentValue = (int)slider.value;
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    [self startNewRound];
+    [self updateLabels];
+    
+}
+
+- (void) startOver {
+    
+    _round = 0;
+    _score = 0;
+    [self startNewRound];
+    [self updateLabels];
     
 }
 
