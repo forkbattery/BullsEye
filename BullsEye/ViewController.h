@@ -11,9 +11,13 @@
 @interface ViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UISlider *slider;
+@property (weak, nonatomic) IBOutlet UILabel *targetLabel;
+@property (weak, nonatomic) IBOutlet UILabel *roundLabel;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
 - (IBAction)showAlert;
 - (IBAction)sliderMoved:(UISlider *)slider;
+
 
 @end
 
