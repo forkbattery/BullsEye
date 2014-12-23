@@ -10,6 +10,10 @@
 
 @interface ViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UISlider *slider;
+
+- (IBAction)showAlert;
+- (IBAction)sliderMoved:(UISlider *)slider;
 
 @end
 
