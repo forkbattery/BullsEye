@@ -27,23 +27,36 @@
     [super viewDidLoad];
     [self startNewRound];
     [self updateLabels];
-
+    
+    //UI design for slider
+    
+    UIImage *thumbImageNormal       = [UIImage imageNamed:@"SliderThumb-Normal"];
+    [self.slider setThumbImage:thumbImageNormal forState:UIControlStateNormal];
+    
+    UIImage *thumbImageHighlighted  = [UIImage imageNamed:@"SliderThumb-Highlighted"];
+    [self.slider setThumbImage:thumbImageHighlighted forState:UIControlStateHighlighted];
+    
+    UIImage *trackLeftImage         = [[UIImage imageNamed:@"SliderTrackLeft"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 14)];
+    [self.slider setMinimumTrackImage:trackLeftImage forState:UIControlStateNormal];
+    
+    UIImage *trackRightImage        = [[UIImage imageNamed:@"SliderTrackRight"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 14)];
+    [self.slider setMaximumTrackImage:trackRightImage forState:UIControlStateNormal];
 }
 
 - (void)startNewRound {
     
-    _targetValue = 1 + arc4random_uniform(100);
-    _currentValue = 50;
-    self.slider.value = _currentValue;
-    _round += 1;
+    _targetValue        = 1 + arc4random_uniform(100);
+    _currentValue       = 50;
+    self.slider.value   = _currentValue;
+    _round              = _round + 1;
     
 }
 
 - (void)updateLabels {
     
-    self.targetLabel.text = [NSString stringWithFormat:@"%i", _targetValue];
-    self.roundLabel.text = [NSString stringWithFormat:@"%i", _round];
-    self.scoreLabel.text = [NSString stringWithFormat:@"%i", _score];
+    self.targetLabel.text   = [NSString stringWithFormat:@"%i", _targetValue];
+    self.roundLabel.text    = [NSString stringWithFormat:@"%i", _round];
+    self.scoreLabel.text    = [NSString stringWithFormat:@"%i", _score];
     
 }
 
@@ -55,34 +68,45 @@
 
 - (IBAction)showAlert {
     
-    int difference = abs(_targetValue - _currentValue);
-    int points = 100 - difference;
+    int difference      = abs(_targetValue - _currentValue);
+    int points          = 100 - difference;
     
-    NSString * title = @"";
+    NSString * title    = @"";
+    
     if (difference == 0) {
-        title = @"Perfect!";
+        
+        title   = @"Perfect!";
         points += 100;
+
     } else if (difference < 5) {
+    
         title = @"Almost had it!";
         if (difference == 1) {
+        
             points += 50;
+        
         }
+    
     } else if (difference < 10) {
+        
         title = @"Pretty good";
+    
     } else {
+        
         title = @"Not even close...";
+    
     }
     
-    _score += points;
+    _score                  = _score + points;
     
-    NSString * message = [NSString stringWithFormat:@"You scored %i points", points];
+    NSString * message      = [NSString stringWithFormat:@"You scored %i points", points];
     
-    UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:title
-                              message:message
-                              delegate:self
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil, nil];
+    UIAlertView *alertView  = [[UIAlertView alloc]
+                               initWithTitle:title
+                               message:message
+                               delegate:self
+                               cancelButtonTitle:@"OK"
+                               otherButtonTitles:nil, nil];
     [alertView show];
     
 }
@@ -107,6 +131,12 @@
     [self startNewRound];
     [self updateLabels];
     
+}
+
+-(BOOL)prefersStatusBarHidden {
+    
+    return YES;
+
 }
 
 @end
