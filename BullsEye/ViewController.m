@@ -128,8 +128,16 @@
     
     _round = 0;
     _score = 0;
+    
+    CATransition *transition = [CATransition animation];
+    transition.type = kCATransitionFade;
+    transition.duration = 1;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    
     [self startNewRound];
     [self updateLabels];
+    
+    [self.view.layer addAnimation:transition forKey:nil];
     
 }
 
